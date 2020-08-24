@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const Cart = require('../../models/Cart');
 const Product = require('../../models/Product');
 
@@ -8,14 +9,7 @@ const Product = require('../../models/Product');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        // Get products ids that were added to cart
         const products = await Cart.find();
-        // const productsIds = products.map(product => product.productId);
-
-        // Get products that were added to cart
-        // const productsInCart = await Product.find().where('_id').in(productsIds).exec();
-
-        // res.json(productsInCart);
         res.json(products);
     } catch (e) {
         console.error(e.message);
@@ -92,7 +86,6 @@ router.delete('/:productId', async (req, res) => {
     const { productId } = req.params;
     try {
         const productInCart = await Cart.findOne({ productId });
-        const product = await Product.findById({ _id: productId });
 
         // Check product in the cart
         if (!productInCart) {
@@ -100,8 +93,6 @@ router.delete('/:productId', async (req, res) => {
         }
 
         await productInCart.remove();
-        product.amount -= productInCart.amountInCart;
-        await product.save();
 
         res.json({ msg: 'Product removed from card' });
     } catch (e) {
