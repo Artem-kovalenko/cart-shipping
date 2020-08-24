@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Cart = require('../../models/Cart');
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 
 const Product = require('../../models/Product');
 
@@ -10,22 +9,13 @@ const Product = require('../../models/Product');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        // Getting all products
-
-        // const ids = [
-        //     '5f423ee8d1ba4c2a1c1458e3',
-        //     '5f423f07d1ba4c2a1c1458e4'
-        // ]
-        // const prodcts = await Product.find().where('_id').in(ids).exec();
-
-        const prodcts = await Product.find();
-        res.json(prodcts);
+        const products = await Product.find();
+        res.json(products);
     } catch (e) {
         console.error(e.message);
         res.status(500).send('Server error');
     }
 });
-
 
 
 
@@ -46,6 +36,7 @@ router.post('/addNewProduct', [
         .not()
         .isEmpty(),
 ], async (req, res) => {
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
