@@ -30,7 +30,7 @@ router.post('/:productId', async (req, res) => {
 
         // Check product in cart
         if (productInCart) {
-            return res.status(400).json({ errors: [{ msg: 'Product already in cart' }] });
+            return res.status(400).json({ errors: { msg: 'Product already in cart' } });
         }
 
         productInCart = new Cart({
