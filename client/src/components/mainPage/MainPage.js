@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import store from "../../store";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getAllProducts } from "../../actions/getAllProducts";
+import { getProducts } from "../../actions/getProducts";
 import {
     CardsWrapper,
     Header,
@@ -15,10 +14,10 @@ import SkeletonCard from "../skeleton/SkeletonCard";
 import ProductCard from "../productCard/ProductCard";
 
 
-const MainPage = ({ productsInShop: { products } }) => {
+const MainPage = ({ productsInShop: { products }, getProducts }) => {
 
     useEffect(() => {
-        store.dispatch(getAllProducts());
+        getProducts()
     }, [])
 
     return (
@@ -38,10 +37,11 @@ const MainPage = ({ productsInShop: { products } }) => {
 
 MainPage.propTypes = {
     productsInShop: PropTypes.object.isRequired,
+    getProducts: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
     productsInShop: state.productsInShop
 })
 
-export default connect(mapStateToProps)(MainPage);
+export default connect(mapStateToProps, {getProducts})(MainPage);

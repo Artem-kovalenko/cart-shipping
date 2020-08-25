@@ -1,2 +1,3 @@
-export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
+export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const ADD_TO_CART = 'ADD_TO_CART';
+export const GET_PRODUCTS_IN_CART = 'GET_PRODUCTS_IN_CART';

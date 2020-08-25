@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import getAllProducts from "./getAllProducts";
-import addToCart from "./addToCart";
+import getProducts from "./getProducts";
+import getProductsInCart from "./getProductsInCart";
 
 export default combineReducers({
-    productsInShop: getAllProducts,
-    productsInCart: addToCart
+    productsInShop: getProducts,
+    productsInCart: getProductsInCart
 });
