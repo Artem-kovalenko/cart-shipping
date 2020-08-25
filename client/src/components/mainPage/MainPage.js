@@ -29,7 +29,7 @@ const MainPage = ({ productsInShop: { products }, getProducts }) => {
                 </Link>
             </Header>
             <CardsWrapper>
-                {products ? <ProductCard products={products}/> : <SkeletonCard/>}
+                {products ? <ProductCard mainPage={true} products={products}/> : <SkeletonCard/>}
             </CardsWrapper>
         </>
     )

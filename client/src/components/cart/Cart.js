@@ -8,27 +8,25 @@ import {
 import ProductCard from "../productCard/ProductCard";
 import SkeletonCard from "../skeleton/SkeletonCard";
 
-const Cart = ({productsInCart: {cart}, productsInShop:{products}, getProductsInCart}) => {
-
+const Cart = ({productsInCart: {cart}, getProductsInCart}) => {
+    console.log('render')
     useEffect( () => {
         getProductsInCart()
     }, [])
 
     return (
         <CardsWrapper>
-            {cart ? <ProductCard products={products} /> : <SkeletonCard/>}
+            {cart ? <ProductCard mainPage={false} products={cart} /> : <SkeletonCard/>}
         </CardsWrapper>
     );
 };
 
 Cart.propTypes = {
     getProductsInCart: PropTypes.func.isRequired,
-    productsInShop: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
     productsInCart: state.productsInCart,
-    productsInShop: state.productsInShop
 })
 
 export default connect(mapStateToProps, {getProductsInCart})(Cart);

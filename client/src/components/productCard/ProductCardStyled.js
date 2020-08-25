@@ -80,3 +80,36 @@ export const Button = styled.div`
        color: white;
      }
 `;
+
+export const AmountPrice = styled(Pricing)``;
+
+export const Amount = styled.div`
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   width: 65%;
+   @media screen and (max-width: 768px) {
+         margin-top: 30px;
+    }
+`;
+
+export const Plus = styled.div`
+    border: 1px solid lightgray;
+    padding: 2px 12px;
+    cursor: pointer;
+    font-size: 27px;
+    font-weight: 100;
+    border-radius: 5px;
+`;
+
+export const Minus = styled(Plus)`
+    font-size: 55px;
+    line-height: 37px;
+    padding: 0 10px;
+`;
+
+export const Input = styled.input`
+    width: 16px;
+    outline: none;
+    border: none;
+`;

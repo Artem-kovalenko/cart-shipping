@@ -25,7 +25,7 @@ router.post('/:productId', async (req, res) => {
 
     try {
         // Get product price
-        const { price } = await Product.findOne({ _id: productId });
+        const { price, name, description } = await Product.findOne({ _id: productId });
         let productInCart = await Cart.findOne({ productId });
 
         // Check product in cart
@@ -35,6 +35,8 @@ router.post('/:productId', async (req, res) => {
 
         productInCart = new Cart({
             productId,
+            name,
+            description,
             totalPrice: price
         });
 
