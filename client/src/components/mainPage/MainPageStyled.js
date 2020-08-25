@@ -6,13 +6,15 @@ export const CardsWrapper = styled.div`
     justify-content: space-around;
 `;
 
-
-export const CartButtonWrapper = styled.div`
+export const Header = styled.div`
     display: flex;
-    justify-content: flex-end;
-    margin: 30px 60px 0 0;
+    justify-content: space-around;
+    margin-top: 30px;
 `;
 
-export const CartButton = styled.div`
-
+export const CartIcon = styled.img`
+    display: block;
+    width: 50px;
+    transform: scale(-1, 1);
+    cursor: pointer;
 `;

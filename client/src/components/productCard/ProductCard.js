@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {addToCart} from '../../actions/addToCart';
 import {
     CardWrapper,
-    Image,
-    Info,
-    Title,
+    InfoWrapper,
     Description,
+    Image,
+    Line,
     Pricing,
     Button,
     Price
@@ -22,33 +22,36 @@ function ProductCard({ products, addToCart }) {
     }
 
     return (
-        <Fragment>
-            {
-                products.map((product, key) => {
-                    const {name, description, price, amount} = product;
-                    return (
-                        <CardWrapper key={key}>
-                            <Image src="https://via.placeholder.com/100"/>
-                            <Info>
-                                <Title>{name}</Title>
-                                {/*<Description>{description}</Description>*/}
-                                <Description>Lorem ipempor incididunt ut labore et dolore magna aliqua.eu fugiat nulla pariatur. </Description>
-                            </Info>
-                            <Pricing>
-                                <Price>{price} €</Price>
-                                <Button
-                                    name='123'
-                                    value={product._id}
-                                    onClick={e => addProuctToCart(e)}
-                                >
-                                    Add to cart
-                                </Button>
-                            </Pricing>
-                        </CardWrapper>
-                    )
-                })
-            }
-        </Fragment>
+        products.map((product, index) => {
+            const {name, description, price, amount} = product;
+            return (
+                <CardWrapper skeleton={false} key={index}>
+
+                    <InfoWrapper>
+                        <Image src="https://via.placeholder.com/100"/>
+                        <Description>
+                            <h2>{name}</h2>
+                            {/*<p>{description}</p>*/}
+                            <p>Lorem ipempor incididunt ut labore et dolore magna aliqua.eu fugiat
+                                nulla pariatur.</p>
+                        </Description>
+                    </InfoWrapper>
+
+                    <Line/>
+
+                    <Pricing>
+                        <Price>{price} €</Price>
+                        <Button
+                            value={product._id}
+                            onClick={addProuctToCart}
+                        >
+                            Add to cart
+                        </Button>
+                    </Pricing>
+
+                </CardWrapper>
+            )
+        })
     )
 }
 

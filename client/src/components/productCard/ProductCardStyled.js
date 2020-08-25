@@ -1,66 +1,83 @@
 import styled from "styled-components";
+import Skeleton from "react-loading-skeleton";
 
 export const CardWrapper = styled.div`
     width: 47%;
     display: flex;
+    justify-content: space-between;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
-    padding: 30px 0 50px 0;
+    padding: ${props => props.skeleton ? '25px 0 50px 0' : '30px 0 50px 0'};
     margin-top: 30px;
+    @media screen and (max-width: 992px) {
+         width: 90%;
+    }
+    @media screen and (max-width: 768px) {
+         flex-direction: column;
+         align-items: center;
+    }
+`;
+
+export const InfoWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    width: 70%;
+    @media screen and (max-width: 768px) {
+         width: 100%;
+    }
+`;
+
+export const Description = styled.div`
+  width: 100%;
 `;
 
 export const Image = styled.img`
-    display: block;
-    margin-right: 25px;
-    box-shadow: -5px 5px 10px 0 lightgrey;
-    width: 100px;
-    height: 100px;
-    border-radius: 10%;
+     display: block;
+     margin-right: 25px;
+     box-shadow: -5px 5px 10px 0 lightgrey;
+     width: 100px;
+     height: 100px;
+     border-radius: 10%;
 `;
 
-export const Info = styled.div`
-    width: 45%;
-    padding-right: 40px;
-`;
-
-export const Title = styled.h2`
-    margin-top: 0;
-    font-size: 23px;
-`;
-
-export const Description = styled.p`
-    font-size: 14px;
-`;
+export const Line = styled.div`
+    margin-left: 27px;
+    width: 1px;
+    height: 100%;
+    background-color: lightgray;
+    @media screen and (max-width: 768px) {
+         margin:30px 0 0 0;
+         height: 1px;
+         width: 50%;
+    }
+ `;
 
 export const Pricing = styled.div`
+    width: 30%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 28%;
-    &:before {
-      content: '';
-      display: block;
-      margin-right: 30px;
-      width: 1px;
-      height: 100%;
-      background-color: lightgray;
+    justify-content: space-around;
+    @media screen and (max-width: 1224px) {
+         flex-direction: column;
+         justify-content: center;
     }
+    
 `;
 
 export const Price = styled.p`
-    font-size: 20px;
-    font-weight: bold;
+     font-size: 20px;
+     font-weight: bold;
 `;
 
 export const Button = styled.div`
-    border: 1px solid black;
-    padding: 5px 8px;
-    border-radius: 14px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: .5s;
-    &:hover {
-      background-color: black;
-      color: white;
-    }
+     border: 1px solid black;
+     padding: 5px 8px;
+     border-radius: 14px;
+     cursor: pointer;
+     font-size: 14px;
+     transition: .5s;
+     &:hover {
+       background-color: black;
+       color: white;
+     }
 `;
