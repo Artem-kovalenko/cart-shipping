@@ -14,12 +14,9 @@ router.post('/', [
             .isEmpty(),
         check('address', 'Address is required')
             .not()
-            .isEmpty(),
-        check('phone', 'Phone number must be valid')
-            .isMobilePhone("uk-UA"),
-        check('email', 'Email is required and must be valid')
-            .isEmail()
+            .isEmpty()
     ], async (req, res) => {
+
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {

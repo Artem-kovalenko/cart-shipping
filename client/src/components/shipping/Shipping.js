@@ -7,7 +7,6 @@ const Shipping = () => {
         <FormWrapper>
             <ShippingForm/>
         </FormWrapper>
-
     );
 };
 

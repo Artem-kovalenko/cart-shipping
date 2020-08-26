@@ -1,16 +1,21 @@
 import React from "react";
-import {Formik, Form} from 'formik';
-import {Input} from './Input';
-import {validationSchemaJoin} from './ValidationSchema';
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Formik } from 'formik';
+import { Input } from './Input';
+import { validationSchemaJoin } from './ValidationSchema';
+import { payForProudcts } from '../../../actions/shipping';
 import {
     Wrapper,
     FormLabels,
     FormInputs,
-    Label
+    Label,
+    Select,
+    PayForm,
+    Button
 } from './FormStyled'
 
-const ShippingForm = () => {
+const ShippingForm = ({ totalCartPrice }) => {
 
     return (
         <Formik
@@ -28,12 +33,13 @@ const ShippingForm = () => {
                     email: values.email.toLowerCase(),
                     phone: values.phone,
                 };
+                payForProudcts(data);
                 console.log(data);
             }}
         >
             {
-                ({isValid}) => (
-                    <Form>
+                ({ isValid }) => (
+                    <PayForm>
                         <Wrapper>
                             <FormLabels>
                                 <Label>Name*</Label>
@@ -41,7 +47,6 @@ const ShippingForm = () => {
                                 <Label>Email</Label>
                                 <Label>Phone</Label>
                                 <Label>Shipping options</Label>
-
                             </FormLabels>
 
                             <FormInputs>
@@ -49,57 +54,35 @@ const ShippingForm = () => {
                                 <Input name="address" type="text" placeholder="Address"/>
                                 <Input name="email" type="email" placeholder="E-mail"/>
                                 <Input name="phone" inputMode="tel" type="text" placeholder="Your Phone Number"/>
-                                <select>
-                                    <option>Free Shipping</option>
-                                    <option>Express Shipping</option>
-                                    <option>Courier shipping</option>
-                                </select>
+                                {
+                                    totalCartPrice >= 300 ?
+                                        <Input name="shipping" value='FREE EXPRESS SHIPPING' type="text" readOnly/>
+                                        :
+                                        <Select>
+                                            <option>Free Shipping</option>
+                                            <option>Express shipping - additional 9.99 €</option>
+                                            <option>Courier shipping - additional 19.99 €</option>
+                                        </Select>
+                                }
                             </FormInputs>
                         </Wrapper>
-
-
-                        <button disabled={!isValid} type="submit" >
+                        <Button disabled={!isValid} type="submit">
                             Pay
-                        </button>
-                    </Form>
-
-                    // <Form>
-                    //     <div>
-                    //         <label>Name*</label>
-                    //         <Input name="fullName" type="text" placeholder="Full name"/>
-                    //     </div>
-                    //     <div>
-                    //         <label>Address*</label>
-                    //         <Input name="address" type="text" placeholder="Address"/>
-                    //     </div>
-                    //     <div>
-                    //         <label>Email</label>
-                    //         <Input name="email" type="email" placeholder="E-mail"/>
-                    //     </div>
-                    //     <div>
-                    //         <lable>Phone</lable>
-                    //         <Input name="phone" inputMode="tel" type="text"
-                    //                placeholder="Your Phone Number"/>
-                    //     </div>
-                    //     <div>
-                    //         <label>Shipping options</label>
-                    //         <select>
-                    //           <option>Free Shipping</option>
-                    //           <option>Express Shipping</option>
-                    //           <option>Courier shipping</option>
-                    //         </select>
-                    //     </div>
-                    //     <button disabled={!isValid} type="submit" >
-                    //         Pay
-                    //     </button>
-                    // </Form>
+                        </Button>
+                    </PayForm>
                 )
             }
-
-
         </Formik>
     )
 }
 
-export default ShippingForm
+ShippingForm.propTypes = {
+    totalCartPrice: PropTypes.number.isRequired,
+}
+
+const mapStateToProps = state => ({
+    totalCartPrice: state.productsInCart.totalCartPrice
+})
+
+export default connect(mapStateToProps)(ShippingForm)
 
