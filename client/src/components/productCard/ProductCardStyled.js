@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CardWrapper = styled.div`
+position: relative;
     width: 47%;
     display: flex;
     justify-content: space-between;
@@ -81,19 +82,23 @@ export const Button = styled.div`
      }
 `;
 
-export const AmountPrice = styled(Pricing)``;
+export const AmountPrice = styled(Pricing)`
+`;
 
 export const Amount = styled.div`
    display: flex;
-   justify-content: space-around;
+   justify-content: center;
    align-items: center;
+   position: relative;
    width: 65%;
    @media screen and (max-width: 768px) {
-         margin-top: 30px;
+         margin: 50px 0 20px 0;
     }
 `;
 
 export const Plus = styled.div`
+    position: absolute;
+    right: 0;
     border: 1px solid lightgray;
     padding: 2px 12px;
     cursor: pointer;
@@ -102,14 +107,29 @@ export const Plus = styled.div`
     border-radius: 5px;
 `;
 
-export const Minus = styled(Plus)`
+export const Minus = styled.div`
+    position: absolute;
+    left: 0;
+    border: 1px solid lightgray;
+    cursor: pointer;
     font-size: 55px;
     line-height: 37px;
     padding: 0 10px;
+    font-weight: 100;
+    border-radius: 5px;
 `;
 
 export const Input = styled.input`
     width: 16px;
     outline: none;
     border: none;
+`;
+
+export const TrashCan = styled.img`
+    display: block;
+    width: 25px;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 0;
 `;

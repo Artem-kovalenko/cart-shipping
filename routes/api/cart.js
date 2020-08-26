@@ -37,6 +37,7 @@ router.post('/:productId', async (req, res) => {
             productId,
             name,
             description,
+            price,
             totalPrice: price
         });
 

@@ -1,9 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { addToCart } from '../../actions/addToCart';
 import { plusProduct } from '../../actions/plusProduct';
-import {getProductsInCart} from '../../actions/getProductsInCart';
+import { minusProduct } from '../../actions/minusProduct';
+import { deleteFromCart } from '../../actions/cart'
+import trashCan from '../../assets/icons/trash-can.svg';
 import {
     CardWrapper,
     InfoWrapper,
@@ -17,24 +19,35 @@ import {
     Amount,
     Plus,
     Minus,
-    Input
+    Input,
+    TrashCan
 } from './ProductCardStyled'
 
-function ProductCard({ products, addToCart, mainPage, plusProduct }) {
+function ProductCard({ products, addToCart, mainPage, plusProduct, minusProduct, deleteFromCart }) {
+console.log('products',products);
+    const getId = e => e.target.getAttribute('value');
 
     const addProuctToCart = e => {
-        const productId = e.target.getAttribute('value');
+        const productId = getId(e);
         addToCart(productId);
-    }
+    };
 
     const addProduct = e => {
-        const productId = e.target.getAttribute('value')
+        const productId = getId(e);
         plusProduct(productId);
-    }
+    };
 
     const removeProduct = e => {
-        console.log(e.target.getAttribute('value'))
-    }
+        const productId = getId(e);
+        minusProduct(productId);
+    };
+
+    const deleteProduct = e => {
+        const productId = getId(e);
+        let totalPrice = null;
+        products.map(item => item.productId === productId ? totalPrice = item.totalPrice : null);
+        deleteFromCart(productId, totalPrice);
+    };
 
     return (
 
@@ -69,11 +82,23 @@ function ProductCard({ products, addToCart, mainPage, plusProduct }) {
                             :
                             <AmountPrice>
                                 <Amount>
-                                    <Plus value={productId} onClick={addProduct}>+</Plus>
-                                    <Input type="number" value={amountInCart} readOnly/>
-                                    <Minus value={productId} onClick={removeProduct}>-</Minus>
+                                    {amountInCart > 1 ? <Minus value={productId} onClick={removeProduct}>-</Minus> : null}
+                                    <Input
+                                        type="number"
+                                        value={amountInCart}
+                                        readOnly
+                                        min="1"
+                                        max="50"
+                                        step="1"
+                                    />
+                                    {amountInCart <= 49  ? <Plus value={productId} onClick={addProduct}>+</Plus> : null}
                                 </Amount>
                                 <Price>{totalPrice} €</Price>
+                                <TrashCan
+                                    value={productId}
+                                    onClick={deleteProduct}
+                                    src={trashCan}
+                                    alt="trash-can.svg"/>
                             </AmountPrice>
                     }
 
@@ -86,6 +111,8 @@ function ProductCard({ products, addToCart, mainPage, plusProduct }) {
 ProductCard.propTypes = {
     addToCart: PropTypes.func.isRequired,
     plusProduct: PropTypes.func.isRequired,
-}
+    minusProduct: PropTypes.func.isRequired,
+    deleteFromCart: PropTypes.func.isRequired,
+};
 
-export default connect(null, { addToCart, plusProduct })(ProductCard);
+export default connect(null, { addToCart, plusProduct, minusProduct, deleteFromCart })(ProductCard);
