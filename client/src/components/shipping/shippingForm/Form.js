@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
@@ -21,6 +21,13 @@ import {
 
 const ShippingForm = ({ totalCartPrice, setAlert }) => {
 
+    const [selectValue, setSelectValue] = useState('FREE SHIPPING')
+
+    const selectChange = e => {
+        const {value} = e.target
+        setSelectValue(value)
+    }
+
     return (
         <Formik
             validationSchema={validationSchemaJoin}
@@ -28,7 +35,7 @@ const ShippingForm = ({ totalCartPrice, setAlert }) => {
                 fullName: '',
                 address: '',
                 email: '',
-                phone: '',
+                phone: ''
             }}
             onSubmit={async (values) => {
                 const data = {
@@ -36,7 +43,9 @@ const ShippingForm = ({ totalCartPrice, setAlert }) => {
                     address: values.address,
                     email: values.email.toLowerCase(),
                     phone: values.phone,
+                    shippingOptions: selectValue
                 };
+                console.log(data)
                 const {status} = await payForProudcts(data);
                 status === 200 && setAlert('Order successful ', 'success');
                 setTimeout(() => {
@@ -65,7 +74,7 @@ const ShippingForm = ({ totalCartPrice, setAlert }) => {
                                     totalCartPrice >= 300 ?
                                         <Input delivery name="shipping" value='FREE EXPRESS SHIPPING' type="text" readOnly/>
                                         :
-                                        <Select>
+                                        <Select onChange={selectChange} name="shipping">
                                             <option>Free Shipping</option>
                                             <option>Express shipping - additional 9.99 €</option>
                                             <option>Courier shipping - additional 19.99 €</option>
