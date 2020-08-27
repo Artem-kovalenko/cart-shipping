@@ -1,10 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addToCart } from '../../actions/addToCart';
-import { plusProduct } from '../../actions/plusProduct';
-import { minusProduct } from '../../actions/minusProduct';
-import { deleteFromCart } from '../../actions/cart'
+import PropTypes from 'prop-types';
+import { addToCart, plusProduct, minusProduct, deleteFromCart } from '../../actions/cart';
+import {setAlert} from '../../actions/alert';
 import trashCan from '../../assets/icons/trash-can.svg';
 import {
     CardWrapper,
@@ -23,13 +21,14 @@ import {
     TrashCan
 } from './ProductCardStyled'
 
-function ProductCard({ products, addToCart, mainPage, plusProduct, minusProduct, deleteFromCart }) {
-console.log('products',products);
+function ProductCard({ mainPage, products, addToCart, plusProduct, minusProduct, deleteFromCart, setAlert }) {
+
     const getId = e => e.target.getAttribute('value');
 
-    const addProuctToCart = e => {
+    const addProuctToCart = async e => {
         const productId = getId(e);
-        addToCart(productId);
+        const res = await addToCart(productId);
+        res.status === 200 ? setAlert('Product added to cart', 'success') : setAlert(`${res}`, 'danger')
     };
 
     const addProduct = e => {
@@ -50,7 +49,6 @@ console.log('products',products);
     };
 
     return (
-
         products.map((product, index) => {
             const { name, description, price, totalPrice, amountInCart, productId } = product;
             return (
@@ -60,9 +58,7 @@ console.log('products',products);
                         <Image src="https://via.placeholder.com/100"/>
                         <Description>
                             <h2>{name}</h2>
-                            {/*<p>{description}</p>*/}
-                            <p>Lorem ipempor incididunt ut labore et dolore magna aliqua.eu fugiat
-                                nulla pariatur.</p>
+                            <p>{description}</p>
                         </Description>
                     </InfoWrapper>
 
@@ -101,7 +97,6 @@ console.log('products',products);
                                     alt="trash-can.svg"/>
                             </AmountPrice>
                     }
-
                 </CardWrapper>
             )
         })
@@ -113,6 +108,7 @@ ProductCard.propTypes = {
     plusProduct: PropTypes.func.isRequired,
     minusProduct: PropTypes.func.isRequired,
     deleteFromCart: PropTypes.func.isRequired,
+    setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addToCart, plusProduct, minusProduct, deleteFromCart })(ProductCard);
+export default connect(null, { addToCart, plusProduct, minusProduct, deleteFromCart, setAlert })(ProductCard);

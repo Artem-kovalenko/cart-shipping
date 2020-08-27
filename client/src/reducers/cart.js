@@ -3,11 +3,11 @@ import {
     PLUS_PRODUCT,
     MINUS_PRODUCT,
     DELETE_FROM_CART
-} from "../actions/types";
+} from '../actions/types';
 
 const initalState = {
     cart: [],
-    totalCartPrice: null
+    totalCartPrice: 0
 };
 
 export default function (state = initalState, action) {

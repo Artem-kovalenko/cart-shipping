@@ -57,7 +57,7 @@ router.put('/:productId', async (req, res) => {
     const { productId } = req.params;
     const { changeAmountInCart } = req.body;
     try {
-        const { price } = await Product.findById({ _id: productId })
+        const { price } = await Product.findById({ _id: productId });
         let productInCart = await Cart.findOne({ productId });
 
         // Check product

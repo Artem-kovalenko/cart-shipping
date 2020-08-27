@@ -3,3 +3,5 @@ export const GET_PRODUCTS_IN_CART = 'GET_PRODUCTS_IN_CART';
 export const PLUS_PRODUCT = 'PLUS_PRODUCT';
 export const MINUS_PRODUCT = 'MINUS_PRODUCT';
 export const DELETE_FROM_CART = 'DELETE_FROM_CART';
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';

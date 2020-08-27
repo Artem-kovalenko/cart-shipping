@@ -1,5 +1,5 @@
 import React from 'react';
-import ShippingForm from "./shippingForm/Form";
+import ShippingForm from './shippingForm/Form';
 import {FormWrapper} from './ShippingStyled';
 
 const Shipping = () => {

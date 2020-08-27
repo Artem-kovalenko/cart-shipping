@@ -9,6 +9,9 @@ position: relative;
     border-bottom: 1px solid lightgrey;
     padding: ${props => props.skeleton ? '25px 0 50px 0' : '30px 0 50px 0'};
     margin-top: 30px;
+    @media screen and (max-width: 1224px) {
+         padding: ${props => props.skeleton ? '25px 0 50px 0' : '52px 0 45px 0'};
+    }
     @media screen and (max-width: 992px) {
          width: 90%;
     }
@@ -28,7 +31,7 @@ export const InfoWrapper = styled.div`
 `;
 
 export const Description = styled.div`
-  width: 100%;
+    width: 100%;
 `;
 
 export const Image = styled.img`
@@ -57,14 +60,21 @@ export const Pricing = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
+    
     @media screen and (max-width: 1224px) {
          flex-direction: column;
-         justify-content: center;
     }
+    @media screen and (max-width: 768px) {
+         margin-top: 20px;
+         height: 80px;
+    }
+    
+        
     
 `;
 
 export const Price = styled.p`
+margin: 0;
      font-size: 20px;
      font-weight: bold;
 `;
@@ -83,6 +93,13 @@ export const Button = styled.div`
 `;
 
 export const AmountPrice = styled(Pricing)`
+  @media screen and (max-width: 1224px) {
+        justify-content: space-around;
+    }
+   @media screen and (max-width: 576px) { 
+        width: 45%;
+   }
+
 `;
 
 export const Amount = styled.div`
@@ -91,9 +108,13 @@ export const Amount = styled.div`
    align-items: center;
    position: relative;
    width: 65%;
+    @media screen and (max-width: 1224px) {
+         width: 85%;
+    }
    @media screen and (max-width: 768px) {
          margin: 50px 0 20px 0;
     }
+ 
 `;
 
 export const Plus = styled.div`

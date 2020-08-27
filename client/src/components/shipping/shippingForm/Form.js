@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { Input } from './Input';
 import { validationSchemaJoin } from './ValidationSchema';
 import { payForProudcts } from '../../../actions/shipping';
+import { setAlert } from '../../../actions/alert';
+import {CustomLink} from '../../cart/CartStyled';
 import {
     Wrapper,
     FormLabels,
@@ -12,10 +14,12 @@ import {
     Label,
     Select,
     PayForm,
-    Button
+    ButtonsWrapper,
+    Button,
+    BackButton
 } from './FormStyled'
 
-const ShippingForm = ({ totalCartPrice }) => {
+const ShippingForm = ({ totalCartPrice, setAlert }) => {
 
     return (
         <Formik
@@ -26,15 +30,18 @@ const ShippingForm = ({ totalCartPrice }) => {
                 email: '',
                 phone: '',
             }}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
                 const data = {
                     name: values.fullName,
                     address: values.address,
                     email: values.email.toLowerCase(),
                     phone: values.phone,
                 };
-                payForProudcts(data);
-                console.log(data);
+                const {status} = await payForProudcts(data);
+                status === 200 && setAlert('Order successful ', 'success');
+                setTimeout(() => {
+                    window.location = '/';
+                }, 1500);
             }}
         >
             {
@@ -56,7 +63,7 @@ const ShippingForm = ({ totalCartPrice }) => {
                                 <Input name="phone" inputMode="tel" type="text" placeholder="Your Phone Number"/>
                                 {
                                     totalCartPrice >= 300 ?
-                                        <Input name="shipping" value='FREE EXPRESS SHIPPING' type="text" readOnly/>
+                                        <Input delivery name="shipping" value='FREE EXPRESS SHIPPING' type="text" readOnly/>
                                         :
                                         <Select>
                                             <option>Free Shipping</option>
@@ -66,23 +73,30 @@ const ShippingForm = ({ totalCartPrice }) => {
                                 }
                             </FormInputs>
                         </Wrapper>
-                        <Button disabled={!isValid} type="submit">
-                            Pay
-                        </Button>
+                        <ButtonsWrapper>
+                            <CustomLink to='/cart'>
+                                <BackButton>back to cart</BackButton>
+                            </CustomLink>
+                            <Button disabled={!isValid} type="submit">
+                                Pay
+                            </Button>
+                        </ButtonsWrapper>
+
                     </PayForm>
                 )
             }
         </Formik>
     )
-}
+};
 
 ShippingForm.propTypes = {
     totalCartPrice: PropTypes.number.isRequired,
-}
+    setAlert: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = state => ({
     totalCartPrice: state.productsInCart.totalCartPrice
-})
+});
 
-export default connect(mapStateToProps)(ShippingForm)
+export default connect(mapStateToProps, {setAlert})(ShippingForm)
 

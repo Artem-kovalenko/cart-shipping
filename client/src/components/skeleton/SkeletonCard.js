@@ -1,24 +1,26 @@
-import React from "react";
-import Skeleton from "react-loading-skeleton";
+import React from 'react';
+import Skeleton from 'react-loading-skeleton';
 import {
     CardWrapper,
     InfoWrapper,
     Description,
     Line,
     Price,
-    Pricing
-} from "../productCard/ProductCardStyled";
+    Pricing,
+    Amount,
+    AmountPrice
+} from '../productCard/ProductCardStyled';
 import {
     SkeletonImage,
     SkeletonButton
 } from './SkeletonCardStyled'
 
-function SkeletonCard() {
+function SkeletonCard({mainPage}) {
 
-    const testArr = Array(4).fill();
+    const skeletonAmount = Array(8).fill();
 
     return (
-        testArr.map((item, index) => {
+        skeletonAmount.map((item, index) => {
             return (
                 <CardWrapper skeleton={true} key={index}>
                     <InfoWrapper>
@@ -45,27 +47,47 @@ function SkeletonCard() {
                     </InfoWrapper>
 
                     <Line/>
+                    {
+                        mainPage ?
+                            <Pricing>
+                                <Price>
+                                    <Skeleton
+                                        duration={1}
+                                        height={30}
+                                        width={30}
+                                    />
+                                </Price>
+                                <div>
+                                    <SkeletonButton
+                                        duration={1}
+                                        height={30}
+                                        width={90}
+                                    />
+                                </div>
+                            </Pricing>
+                            :
+                            <AmountPrice>
+                                <Amount>
+                                    <Skeleton
+                                        duration={1}
+                                        height={30}
+                                        width={30}
+                                    />
+                                </Amount>
+                                <Price>
+                                    <Skeleton
+                                    duration={1}
+                                    height={30}
+                                    width={30}
+                                     />
+                                </Price>
 
-                    <Pricing>
-                        <Price>
-                            <Skeleton
-                                duration={1}
-                                height={30}
-                                width={30}
-                            />
-                        </Price>
-                        <div>
-                            <SkeletonButton
-                                duration={1}
-                                height={30}
-                                width={90}
-                            />
-                        </div>
-                    </Pricing>
+                            </AmountPrice>
+                    }
                 </CardWrapper>
             )
         })
     )
-};
+}
 
 export default SkeletonCard;

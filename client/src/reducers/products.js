@@ -2,7 +2,7 @@ import {GET_PRODUCTS} from "../actions/types";
 
 const initalState = {
     products: null
-}
+};
 
 export default function (state = initalState, action) {
     const { type, payload } = action;
@@ -12,7 +12,7 @@ export default function (state = initalState, action) {
             return {
                 ...state,
                 products: payload
-            }
+            };
         default:
             return state
     }

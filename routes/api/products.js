@@ -17,8 +17,6 @@ router.get('/', async (req, res) => {
     }
 });
 
-
-
 // @route   POST api/products/addNewProduct
 // @desc    Add New Product (for admin to add new products)
 // @access  Public
