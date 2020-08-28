@@ -15,7 +15,6 @@ export const Header = styled.div`
 `;
 
 export const CartIcon = styled.img`
-    display: block;
     width: 50px;
     transform: scale(-1, 1);
     cursor: pointer;

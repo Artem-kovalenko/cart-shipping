@@ -4,7 +4,6 @@ export const CardWrapper = styled.div`
 position: relative;
     width: 47%;
     display: flex;
-    justify-content: space-between;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     padding: ${props => props.skeleton ? '25px 0 50px 0' : '30px 0 50px 0'};

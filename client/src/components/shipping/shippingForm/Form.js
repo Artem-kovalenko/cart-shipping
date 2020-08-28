@@ -45,7 +45,6 @@ const ShippingForm = ({ totalCartPrice, setAlert }) => {
                     phone: values.phone,
                     shippingOptions: selectValue
                 };
-                console.log(data)
                 const {status} = await payForProudcts(data);
                 status === 200 && setAlert('Order successful ', 'success');
                 setTimeout(() => {

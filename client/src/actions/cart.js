@@ -3,12 +3,19 @@ import {
     DELETE_FROM_CART,
     GET_PRODUCTS_IN_CART,
     MINUS_PRODUCT,
-    PLUS_PRODUCT
+    PLUS_PRODUCT,
+    ADD_TO_CART_SUCCESS
 } from '../actions/types';
 
-export const addToCart = (productId) => async () => {
+export const addToCart = (productId) => async dispatch => {
     try{
-        return await axios.post(`/api/cart/${productId}`);
+        const result = await axios.post(`/api/cart/${productId}`);
+
+        dispatch({
+            type: ADD_TO_CART_SUCCESS,
+        });
+
+        return result;
     } catch (e) {
         return e.response.data.errors.msg;
     }
